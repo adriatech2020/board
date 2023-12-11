@@ -11,6 +11,7 @@ class Defaults {
   static const EdgeInsets defaultColumnMargin = EdgeInsets.all(10.0);
   static const double defaultColumnBorderRadius = 10.0;
   static const double defaultColumnElevation = 4.0;
+  static const double defaultColumnMinWidth = 400.0;
 
   // Default Column Configuration
   static Map<String, dynamic> get defaultColumnConfig {
@@ -20,6 +21,7 @@ class Defaults {
       'margin': defaultColumnMargin,
       'borderRadius': defaultColumnBorderRadius,
       'elevation': defaultColumnElevation,
+      'minWidth': defaultColumnMinWidth,
     };
   }
 }

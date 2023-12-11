@@ -7,6 +7,7 @@ class ColumnConfiguration {
   final EdgeInsetsGeometry margin;
   final double borderRadius;
   final double elevation;
+  final double minWidth;
 
   ColumnConfiguration({
     required this.title,
@@ -14,6 +15,7 @@ class ColumnConfiguration {
     this.margin = Defaults.defaultColumnMargin,
     this.borderRadius = Defaults.defaultColumnBorderRadius,
     this.elevation = Defaults.defaultColumnElevation,
+    this.minWidth = Defaults.defaultColumnMinWidth,
   });
 
   // Method to merge custom config with default config
@@ -31,6 +33,7 @@ class ColumnConfiguration {
       margin: mergedConfig['margin'] as EdgeInsetsGeometry,
       borderRadius: mergedConfig['borderRadius'] as double,
       elevation: mergedConfig['elevation'] as double,
+      minWidth: mergedConfig['minWidth'] as double,
     );
   }
 }

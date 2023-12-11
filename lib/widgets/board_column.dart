@@ -16,24 +16,27 @@ class BoardColumn extends StatelessWidget {
     // Access configuration from the model
     final config = model.configuration;
 
-    return Card(
-      elevation: config.elevation,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(config.borderRadius),
-      ),
-      margin: config.margin,
-      child: Padding(
-        padding: config.padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              config.title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 10),
-            ...cardsContainers, // Your existing cards containers
-          ],
+    return Container(
+      constraints: BoxConstraints(minWidth: config.minWidth),
+      child: Card(
+        elevation: config.elevation,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(config.borderRadius),
+        ),
+        margin: config.margin,
+        child: Padding(
+          padding: config.padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                config.title,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 10),
+              ...cardsContainers, // Your existing cards containers
+            ],
+          ),
         ),
       ),
     );
