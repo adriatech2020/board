@@ -1,8 +1,8 @@
-// lib/widgets/board.dart
-import 'package:board/widgets/board_column.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/board_model.dart';
+import 'package:board/widgets/board_column.dart';
+import 'package:board/models/board_model.dart';
+import 'package:board/models/board_column_model.dart'; // Import BoardColumnModel
 
 class Board extends StatelessWidget {
   const Board({super.key});
@@ -21,12 +21,15 @@ class Board extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: config.columns
-                .map((columnConfig) => BoardColumn(title: columnConfig.title))
-                .toList(),
+            children: config.columns.map((columnConfig) {
+              var columnModel = BoardColumnModel(); // Create BoardColumnModel
+              columnModel.updateConfiguration(columnConfig); // Update configuration
+              return BoardColumn(model: columnModel); // Pass BoardColumnModel to BoardColumn
+            }).toList(),
           ),
         ),
       ),
     );
   }
 }
+

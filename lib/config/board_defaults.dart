@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:board/models/column_configuration.dart';
+import 'package:board/config/column_configuration.dart';
 
 class Defaults {
   // Default color for the board background

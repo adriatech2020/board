@@ -1,30 +1,40 @@
-// lib/widgets/board_column.dart
 import 'package:flutter/material.dart';
-// Import CardsContainer widget
+import 'package:board/models/board_column_model.dart';
 
 class BoardColumn extends StatelessWidget {
-  final String title;
-  final List<Widget> cardsContainers; // List of CardsContainer widgets
+  final BoardColumnModel model;
+  final List<Widget> cardsContainers;
 
   const BoardColumn({
     super.key,
-    required this.title,
-    this.cardsContainers = const [], // Initialize with an empty list by default
+    required this.model,
+    this.cardsContainers = const [],
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          ...cardsContainers, // Spread operator to add all CardsContainer widgets
-        ],
+    // Access configuration from the model
+    final config = model.configuration;
+
+    return Card(
+      elevation: config.elevation,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(config.borderRadius),
+      ),
+      margin: config.margin,
+      child: Padding(
+        padding: config.padding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              config.title,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 10),
+            ...cardsContainers, // Your existing cards containers
+          ],
+        ),
       ),
     );
   }

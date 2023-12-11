@@ -1,6 +1,6 @@
 // lib/models/board_model.dart
 import 'package:flutter/foundation.dart';
-import 'board_configuration.dart';
+import '../config/board_configuration.dart';
 
 class BoardModel extends ChangeNotifier {
   // Initialize _configuration with default configuration
