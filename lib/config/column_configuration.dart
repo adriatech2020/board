@@ -10,10 +10,10 @@ class ColumnConfiguration {
 
   ColumnConfiguration({
     required this.title,
-    this.padding = const EdgeInsets.all(8.0),
-    this.margin = const EdgeInsets.all(10.0),
-    this.borderRadius = 10.0,
-    this.elevation = 4.0,
+    this.padding = Defaults.defaultColumnPadding,
+    this.margin = Defaults.defaultColumnMargin,
+    this.borderRadius = Defaults.defaultColumnBorderRadius,
+    this.elevation = Defaults.defaultColumnElevation,
   });
 
   // Method to merge custom config with default config
