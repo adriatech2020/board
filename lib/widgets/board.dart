@@ -14,7 +14,7 @@ class Board extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kanban Board'),
+        title: Text(config.title),
       ),
       body: Container(
         color: config.backgroundColor,
