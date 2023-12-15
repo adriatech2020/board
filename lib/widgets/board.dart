@@ -23,10 +23,14 @@ class BoardState extends State<Board> {
       appBar: AppBar(
         title: Text(config.title),
         actions: [
-          IconButton(
-            icon: Icon(_isEditMode ? Icons.check : Icons.edit),
+          ElevatedButton.icon(
             onPressed: _toggleEditMode,
-            tooltip: _isEditMode ? 'Finish Editing' : 'Edit Layout',
+            icon: Icon(_isEditMode ? Icons.check : Icons.edit),
+            label: Text(_isEditMode ? 'Finish Editing' : 'Edit Layout'),
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.blue,
+            ),
           ),
         ],
       ),
@@ -60,7 +64,8 @@ class BoardState extends State<Board> {
   void _updateList() {
     final boardModel = Provider.of<BoardModel>(context, listen: false);
     if (_isEditMode) {
-      boardModel.listKey.currentState?.insertItem(boardModel.configuration.columns.length);
+      boardModel.listKey.currentState
+          ?.insertItem(boardModel.configuration.columns.length);
     } else {
       boardModel.listKey.currentState?.removeItem(
         boardModel.configuration.columns.length,
@@ -69,7 +74,8 @@ class BoardState extends State<Board> {
     }
   }
 
-  Widget _buildAnimatedColumn(BoardColumnModel model, Animation<double> animation) {
+  Widget _buildAnimatedColumn(
+      BoardColumnModel model, Animation<double> animation) {
     return FadeTransition(
       opacity: animation,
       child: BoardColumn(model: model),
