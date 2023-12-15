@@ -1,3 +1,4 @@
+// lib/widgets/board.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:board/widgets/board_column.dart';
@@ -18,16 +19,39 @@ class Board extends StatelessWidget {
       ),
       body: Container(
         color: config.backgroundColor,
-        child: ListView.builder(
+        child: AnimatedList(
+          key: boardModel.listKey,
           scrollDirection: Axis.horizontal,
-          itemCount: config.columns.length,
-          itemBuilder: (context, index) {
-            var columnConfig = config.columns[index];
-            var columnModel = BoardColumnModel();
-            columnModel.updateConfiguration(columnConfig);
-            return BoardColumn(model: columnModel);
+          initialItemCount: config.columns.length + 1,
+          itemBuilder: (context, index, animation) {
+            if (index < config.columns.length) {
+              var columnModel = BoardColumnModel();
+              columnModel.updateConfiguration(config.columns[index]);
+              return _buildAnimatedColumn(columnModel, animation);
+            } else {
+              return _buildAddColumnButton(context);
+            }
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildAnimatedColumn(BoardColumnModel model, Animation<double> animation) {
+    return FadeTransition(
+      opacity: animation,
+      child: BoardColumn(model: model),
+    );
+  }
+
+  Widget _buildAddColumnButton(BuildContext context) {
+    final boardModel = Provider.of<BoardModel>(context, listen: false);
+    return Container(
+      alignment: Alignment.topCenter,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: OutlinedButton(
+        onPressed: () => boardModel.addNewColumn(),
+        child: const Text('Add Column'),
       ),
     );
   }
