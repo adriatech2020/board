@@ -33,7 +33,7 @@ class _CardsAreaState extends State<CardsArea> {
           widget.model.type == CardsAreaType.tasksContainer
               ? _buildTasksContainer()
               : _buildAreasContainer(),
-          if (isEditMode) _buildSplitButton(), // Show button in edit mode
+          if (isEditMode) _buildAddRowButton(), // Show button in edit mode
         ],
       ),
     );
@@ -45,27 +45,35 @@ class _CardsAreaState extends State<CardsArea> {
   }
 
   Widget _buildAreasContainer() {
-    return Flex(
-      direction: widget.model.direction,
-      children: widget.model.childAreas
-          .map((childModel) => Expanded(child: CardsArea(model: childModel)))
-          .toList(),
-    );
+    return widget.model.direction == Axis.vertical
+        ? SingleChildScrollView(
+            child: Column(
+              children: widget.model.childAreas
+                  .map((childModel) => CardsArea(model: childModel))
+                  .toList(),
+            ),
+          )
+        : Row(
+            children: widget.model.childAreas
+                .map((childModel) =>
+                    Expanded(child: CardsArea(model: childModel)))
+                .toList(),
+          );
   }
 
-  Widget _buildSplitButton() {
+  Widget _buildAddRowButton() {
     return Positioned(
       right: 10,
       bottom: 10,
       child: ElevatedButton(
-        onPressed: () => _handleSplitAction(),
-        child: const Text('Split Horizontally'),
+        onPressed: () => _handleAddRowAction(),
+        child: const Text('Add row'),
       ),
     );
   }
 
-  void _handleSplitAction() {
-    // Placeholder for future split logic
-    print('Split button pressed');
+  void _handleAddRowAction() {
+    widget.model.addRow();
+    setState(() {});
   }
 }

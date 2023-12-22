@@ -23,5 +23,24 @@ class CardsAreaModel extends ChangeNotifier {
     notifyListeners(); // Notify listeners to rebuild the widget
   }
 
+  // Method to add new row with a new child area
+  void addRow() {
+    if (type == CardsAreaType.tasksContainer) {
+      _convertToAreasContainer();
+    } else {
+      // Additional logic for adding a new AreasContainer inside an areas container will be added later
+    }
+    notifyListeners();
+  }
+
+  void _convertToAreasContainer() {
+    type = CardsAreaType.areasContainer;
+    direction = Axis.vertical;
+    childAreas = [
+      CardsAreaModel(), // First child area
+      CardsAreaModel(), // Second child area
+    ];
+  }
+
   // Add other methods as needed...
 }
