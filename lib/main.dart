@@ -1,4 +1,5 @@
 import 'package:board/models/board_model.dart';
+import 'package:board/models/edit_mode_model.dart'; // Import EditModeModel
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:board/widgets/board.dart';
@@ -12,9 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Wrap MaterialApp with ChangeNotifierProvider
-    return ChangeNotifierProvider(
-      create: (context) => BoardModel(), // Provide your BoardModel
+    // Use MultiProvider to provide both BoardModel and EditModeModel
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => BoardModel()),
+        ChangeNotifierProvider(create: (context) => EditModeModel()),
+      ],
       child: MaterialApp(
         title: 'Board',
         theme: ThemeData(
@@ -39,10 +43,20 @@ class BoardHomePage extends StatefulWidget {
 class _BoardHomePageState extends State<BoardHomePage> {
   @override
   Widget build(BuildContext context) {
+    // Access the EditModeModel using Provider
+    final editModeModel = Provider.of<EditModeModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(editModeModel.isEditMode ? Icons.check : Icons.edit),
+            onPressed: () => editModeModel.toggleEditMode(),
+            tooltip: editModeModel.isEditMode ? 'Finish Editing' : 'Edit Layout',
+          ),
+        ],
       ),
       body: const Board(),
     );
